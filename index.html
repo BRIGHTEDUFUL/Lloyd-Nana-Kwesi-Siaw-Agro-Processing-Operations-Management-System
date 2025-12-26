@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AccraAgro | Advanced Processing Systems</title>
+    <meta name="description" content="Modernizing Agro-Processing across West Africa with real-time IoT monitoring and circular energy systems.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-dark text-slate-200 font-sans overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar glass-dark">
+        <div class="sidebar-header">
+            <div class="logo-container" onclick="navigateTo('landing')">
+                <div class="logo-icon">
+                    <i data-lucide="zap"></i>
+                </div>
+                <h1 class="logo-text">AccraAgro</h1>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <button class="nav-item" onclick="navigateTo('dashboard')" data-view="dashboard">
+                <i data-lucide="layout-dashboard"></i>
+                <span>Operations Dashboard</span>
+                <div class="active-indicator"></div>
+            </button>
+            <button class="nav-item" onclick="navigateTo('inventory')" data-view="inventory">
+                <i data-lucide="package"></i>
+                <span>Inventory Control</span>
+            </button>
+            <button class="nav-item" onclick="navigateTo('energy')" data-view="energy">
+                <i data-lucide="zap"></i>
+                <span>Energy Systems</span>
+            </button>
+            <button class="nav-item" onclick="navigateTo('maintenance')" data-view="maintenance">
+                <i data-lucide="wrench"></i>
+                <span>Machine Maintenance</span>
+            </button>
+            <button class="nav-item" onclick="navigateTo('byproducts')" data-view="byproducts">
+                <i data-lucide="recycle"></i>
+                <span>Sustainability</span>
+            </button>
+
+            <div class="nav-divider"></div>
+
+            <button class="nav-item" onclick="navigateTo('landing')">
+                <i data-lucide="home"></i>
+                <span>Back to Home</span>
+            </button>
+            <button class="nav-item logout-btn" onclick="logout()">
+                <i data-lucide="log-out"></i>
+                <span>Logout</span>
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <div class="avatar-container">
+                    <img src="assets/images/manager.jpg" alt="Avatar" onerror="this.onerror=null; this.src='https://i.pravatar.cc/100?img=12';">
+                    <div class="status-dot"></div>
+                </div>
+                <div class="user-info">
+                    <p class="user-name">Lloyd Nana Kwesi Siaw</p>
+                    <p class="user-role">Plant Manager</p>
+                </div>
+                <i data-lucide="settings" class="settings-icon"></i>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Sidebar Overlay (Mobile) -->
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header id="main-header" class="glass-header">
+            <div class="header-left">
+                <button class="menu-btn" onclick="toggleSidebar()">
+                    <i data-lucide="menu"></i>
+                </button>
+                <div class="page-title">
+                    <h2 id="page-title-text">Operations Dashboard</h2>
+                    <span class="facility-name">Accra Main Facility</span>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="status-indicator hidden-mobile">
+                    <div class="status-dot-pulse"></div>
+                    <span>System Live</span>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="icon-btn" onclick="showToast('Check notifications for alerts', 'info')">
+                        <i data-lucide="bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="icon-btn" onclick="showToast('Opening Profile', 'info')">
+                        <i data-lucide="user"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Views Container -->
+        <div id="views-container" class="views-container">
+            
+            <!-- Landing Page View -->
+            <section id="view-landing" class="view active">
+                <div class="landing-hero-bg">
+                    <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=2000&h=1000&fit=crop&q=80" alt="Background">
+                    <div class="overlay"></div>
+                </div>
+
+                <nav class="landing-nav">
+                    <div class="landing-logo modal-trigger" onclick="navigateTo('landing')">
+                        <div class="logo-box">
+                            <i data-lucide="zap"></i>
+                        </div>
+                        <div class="logo-text-group">
+                            <h1>AccraAgro</h1>
+                            <span>Processing Systems</span>
+                        </div>
+                    </div>
+                    <div class="landing-links">
+                        <button onclick="navigateTo('dashboard')">Solutions</button>
+                        <button onclick="navigateTo('byproducts')">Sustainability</button>
+                        <div class="divider"></div>
+                        <button class="cta-btn" onclick="navigateTo('dashboard')">Enterprise Login</button>
+                    </div>
+                    <button class="mobile-login-btn" onclick="navigateTo('dashboard')">Login</button>
+                </nav>
+
+                <div class="landing-content">
+                    <div class="location-badge">
+                        <i data-lucide="map-pin"></i>
+                        <span>HQ: Greater Accra Region, Ghana</span>
+                    </div>
+
+                    <h1 class="hero-title">Modernizing <span class="text-gradient">Agro-Processing</span> across West Africa</h1>
+                    
+                    <p class="hero-desc">
+                        Accra Agro Processing Ltd is driving industrial efficiency with real-time IoT monitoring, 
+                        circular energy systems, and data-driven supply chain control.
+                    </p>
+
+                    <div class="hero-actions">
+                        <button class="primary-btn" onclick="navigateTo('dashboard')">
+                            <span>Launch Command Center</span>
+                            <i data-lucide="arrow-right"></i>
+                        </button>
+                        <button class="secondary-btn" onclick="navigateTo('byproducts')">
+                            View Sustainability Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&h=400&fit=crop&q=80" alt="Maize">
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-icon emerald">
+                                <i data-lucide="factory"></i>
+                            </div>
+                            <h3>Plant Telemetry</h3>
+                            <p>End-to-end monitoring of 12 processing lines with sub-second sensor fidelity.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&h=400&fit=crop&q=80" alt="Solar">
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-icon amber">
+                                <i data-lucide="leaf"></i>
+                            </div>
+                            <h3>Circular Power</h3>
+                            <p>Leveraging the Ghanaian sun and organic waste for a resilient, 100% renewable grid.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card wide">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=400&fit=crop&q=80" alt="Logistics">
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-icon blue">
+                                <i data-lucide="bar-chart-3"></i>
+                            </div>
+                            <h3>Smart Logistics</h3>
+                            <p>Predictive buffer control for Ghana's essential crops like cassava and yellow maize.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <footer class="landing-footer">
+                   <p>© 2026 Accra Agro Processing Ltd. Command System V4.0</p>
+                   <div class="footer-links">
+                        <span><i data-lucide="shield"></i> Enterprise Core</span>
+                        <span><i data-lucide="globe"></i> Region: West Africa</span>
+                   </div>
+                </footer>
+            </section>
+
+            <!-- Dashboard View -->
+            <section id="view-dashboard" class="view">
+                <div class="dashboard-banner">
+                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&h=250&fit=crop&q=80" alt="Dashboard Banner">
+                    <div class="banner-overlay"></div>
+                    <div class="banner-content">
+                        <h2>Plant Commander <span class="text-emerald">Alpha</span></h2>
+                        <p>Accra Industrial Zone • Sector 4G</p>
+                    </div>
+                    <div class="banner-stats">
+                        <div class="stat-item">
+                            <span class="label">Temp</span>
+                            <span class="value">32.4°C</span>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="stat-item">
+                            <span class="label">Humidity</span>
+                            <span class="value">78%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-grid">
+                    <!-- KPI Templates populated by JS -->
+                    <div class="kpi-card" data-kpi="production">
+                        <!-- Content injected via JS -->
+                    </div>
+                    <div class="kpi-card" data-kpi="energy"></div>
+                    <div class="kpi-card" data-kpi="maintenance"></div>
+                    <div class="kpi-card" data-kpi="revenue"></div>
+                </div>
+
+                <div class="dashboard-grid-main">
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Production Yield</h3>
+                                <p>Real-time output analytics</p>
+                            </div>
+                            <div class="legend">
+                                <div class="legend-item"><span class="dot emerald"></span> Actual</div>
+                                <div class="legend-item"><span class="dot slate"></span> Target</div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="productionChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="health-card">
+                        <div class="card-header simple">
+                            <div class="icon-box emerald"><i data-lucide="shield-check"></i></div>
+                            <h3>Health Status</h3>
+                        </div>
+                        <div class="alerts-list">
+                            <div class="alert-item red">
+                                <div class="icon"><i data-lucide="alert-triangle"></i></div>
+                                <div class="content">
+                                    <h4>Critical: Intake Stall</h4>
+                                    <p>Silo Alpha pressure valve alert. Action required.</p>
+                                </div>
+                            </div>
+                            <div class="alert-item amber">
+                                <div class="icon"><i data-lucide="wrench"></i></div>
+                                <div class="content">
+                                    <h4>Calibration Warning</h4>
+                                    <p>Sensor #F91 reporting variance.</p>
+                                </div>
+                            </div>
+                            <div class="alert-item emerald">
+                                <div class="icon"><i data-lucide="zap"></i></div>
+                                <div class="content">
+                                    <h4>Power Optimizer</h4>
+                                    <p>Switched to Solar/Biomass mix.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="security-status">
+                            <div class="status-header">
+                                <span>Security Status</span>
+                                <span class="status-ok">SECURE</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="diagnostics-bar">
+                    <div class="bg-image"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=100&fit=crop&q=80"></div>
+                    <div class="d-overlay"></div>
+                    <div class="d-content">
+                        <div class="d-icon"><i data-lucide="factory"></i></div>
+                        <div class="d-text">
+                            <h3>Diagnostic Subsystems</h3>
+                            <p>Status: <span class="text-emerald">Integrity Verified</span></p>
+                        </div>
+                    </div>
+                    <button id="diagnostic-btn" class="d-btn" onclick="runDiagnostics()">
+                        <i data-lucide="activity"></i>
+                        <span id="diagnostic-text">System Integrity Check</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Other Views Placeholders -->
+            <section id="view-inventory" class="view">
+                 <div class="section-header">
+                    <h2>Inventory Control</h2>
+                    <p>Real-time stock levels and warehouse management.</p>
+                </div>
+                <div class="table-card">
+                    <table id="inventory-table">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Type</th>
+                                <th>Quantity</th>
+                                <th>Status</th>
+                                <th>Last Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="view-energy" class="view">
+                 <div class="section-header">
+                    <h2>Energy Systems</h2>
+                    <p>Monitor renewable usage and grid consumption.</p>
+                </div>
+                <!-- Energy Chart Placeholder -->
+                <div class="chart-card">
+                    <h3>Power Consumption (24h)</h3>
+                    <div class="chart-container large">
+                        <canvas id="energyChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="view-maintenance" class="view">
+                <div class="section-header">
+                    <h2>Machine Maintenance</h2>
+                    <p>Equipment health and service schedules.</p>
+                </div>
+                <div class="machines-grid" id="machines-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <section id="view-byproducts" class="view">
+                <div class="section-header">
+                    <h2>Sustainability & By-Products</h2>
+                    <p>Circular economy metrics and waste utilization.</p>
+                </div>
+                <div class="sustainability-dashboard">
+                   <div class="chart-card half">
+                        <h3>Waste Utilization</h3>
+                        <div class="chart-container circle">
+                            <canvas id="byproductsChart"></canvas>
+                        </div>
+                   </div>
+                   <div class="info-card">
+                       <h3>Impact Report</h3>
+                       <p>By converting organic waste into biomass fuel and animal feed, we have reduced our carbon footprint by 40% this quarter.</p>
+                   </div>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- Toasts -->
+    <div id="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
